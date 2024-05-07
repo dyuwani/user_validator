@@ -3,41 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="styles.css">
 <title>User Validation</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-    }
-    .container {
-        max-width: 800px;
-        margin: auto;
-        padding: 20px;
-    }
-    textarea {
-        width: 100%;
-        height: 100px;
-    }
-    button {
-        margin-top: 10px;
-        padding: 10px 20px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        cursor: pointer;
-    }
-    button:hover {
-        background-color: #45a049;
-    }
-    #validationResults {
-        margin-top: 20px;
-    }
-</style>
 </head>
 <body>
     
 <div class="container">
     <h2>User Validation</h2>
-    <p>This site is still a work in progress.</p>
+    <p>Note: This site is still a work in progress</p>
+    <h3>Instruction for using the site:</h3>
+    <p>To input your data, separate Name, Email Address, Business Phone Number and Mobile Phone Number by comma</p>
+    <p>Example: John Doe, johndoe@example.com, 2121234567, 2121234568</p>
+    <p>You can use this <a href="https://ezecastleintegration.sharepoint.com/:x:/r/sites/transition-management-private/Shared%20Documents/Project%20Progress%20-%20Joey/User_Validation.xlsx?d=w3e210b7a0a36478e878883dbe6100b83&csf=1&web=1&e=v4afaw">User Validation excel template</a></p>
     <div id="correctListForm">
         <h3>Correct List</h3>
         <textarea placeholder="Enter data for Correct List"></textarea>
@@ -57,94 +34,6 @@
     <button id="validateButton">Validate</button>
     <div id="validationResults"></div>
 </div>
-
-<script>
-    document.getElementById('validateButton').addEventListener('click', function() {
-        // Get data from input forms
-        const correctListData = parseData(document.querySelector('#correctListForm textarea').value);
-        const snowData = parseData(document.querySelector('#snowForm textarea').value);
-        const salesforceData = parseData(document.querySelector('#salesforceForm textarea').value);
-        const myPortalData = parseData(document.querySelector('#myPortalForm textarea').value);
-
-        // Perform validation
-        const validationResults = validateData(correctListData, snowData, salesforceData, myPortalData);
-
-        // Display validation results
-        displayValidationResults(validationResults);
-    });
-
-    function parseData(dataString) {
-        // Parse the data string into an array of objects
-        const lines = dataString.split('\n');
-        const data = [];
-        lines.forEach(line => {
-            const values = line.split(',');
-            const obj = {
-                name: values[0]?.trim(),
-                email: values[1]?.trim(),
-                businessPhone: values[2]?.trim(),
-                mobile: values[3]?.trim()
-            };
-            data.push(obj);
-        });
-        return data;
-    }
-
-    function validateData(correctListData, snowData, salesforceData, myPortalData) {
-        const validationResults = {
-            userInAllSystems: [],
-            correctListInAll: true,
-            correctListIn: [],
-            incorrectData: {},
-            extraNames: {
-                snow: [],
-                salesforce: [],
-                myPortal: [],
-                correctListNotIn: {
-                    snow: [],
-                    salesforce: [],
-                    myPortal: []
-                }
-            }
-        };
-
-        // Validation logic...
-
-        return validationResults;
-    }
-
-    function displayValidationResults(validationResults) {
-        const resultsDiv = document.getElementById('validationResults');
-        resultsDiv.innerHTML = '';
-
-        // Display validation results...
-
-    }
-
-    function validateEmail(email) {
-        if (email === '') {
-            return 'Email is missing';
-        }
-        // Regular expression to validate email format
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            return 'Email is incorrect';
-        }
-        return true;
-    }
-
-    function validatePhoneNumber(phoneNumber, type) {
-        if (phoneNumber === '') {
-            return `${type} is missing`;
-        }
-        // Regular expression to validate phone number format (10 digits)
-        const phoneRegex = /^\d{10}$/;
-        if (!phoneRegex.test(phoneNumber)) {
-            return `${type} is incorrect`;
-        }
-        return true;
-    }
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
